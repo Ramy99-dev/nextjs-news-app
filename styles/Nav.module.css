@@ -4,6 +4,7 @@
     display: flex;
     flex-basis:100%;
     justify-content: space-evenly;
+    flex-basis:10%;
     
 }
 .select{
@@ -13,6 +14,7 @@
 }
 .options{
     display: flex;
+    height: 1.6rem;
     gap:10px;
 }
 .search>input{

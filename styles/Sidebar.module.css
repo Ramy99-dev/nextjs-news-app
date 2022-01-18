@@ -1,3 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@700&display=swap');
 .sidebar{
-    flex-basis: 20vw;
+    flex-basis: 10vw;
+    font-family: 'Pragati Narrow', sans-serif;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(50px);
+}
+.listItems{
+    padding:0;
+    list-style-type: none;
+    padding:10px;
+}
+.listItems>li{
+    height:2rem;
+    border-radius: 10px;
+    padding-left:10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap:10%;
+    
+}
+.listItems>li:first-child{
+    gap:8%;
+}
+.listItems>li:last-child{
+    gap:8%;
+    position: absolute;
+    bottom: 10px;
+    width:80%;
+    
+    
+}
+.listItems>li>span{
+    flex-basis: 90%;
+}
+.listItems>li>FontAwesomeIcon{
+    flex-basis: 10%;
+}
+.listItems>li:hover{
+    color:rgb(79, 62, 158);
+    background:rgba(79, 62, 158,0.3);
 }
