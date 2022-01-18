@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@700&display=swap');
+.nav{
+    padding: 10px;
+    display: flex;
+    flex-basis:100%;
+    justify-content: space-evenly;
+    
+}
+.select{
+    background: transparent;
+    border-color: transparent;
+    font-family: 'Pragati Narrow', sans-serif;
+}
+.options{
+    display: flex;
+    gap:10px;
+}
+.search>input{
+    height: 1.6rem;
+    background: transparent;
+    border: none;
+    background: white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-left: 10px;
+    font-family: 'Pragati Narrow', sans-serif;
+}
+.search>button{
+    height:1.74rem;
+    width:2rem;
+    color: white;
+    background:rgb(79, 62, 158);
+    border: none;
+}
+
+.calendar{
+    background: transparent;
+    border: none;
+    font-family: 'Pragati Narrow', sans-serif;
+}
+
+.calendar:focus,.select:focus,.search>input:focus{
+    outline: none;
+}

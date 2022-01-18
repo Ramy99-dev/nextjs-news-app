@@ -1,8 +1,36 @@
 html,
 body {
+  width: 100%;
+  height:100%;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background: linear-gradient(-45deg, #525cee, #3cdce7, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 70s ease infinite;
+
+}
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
 }
 
+.layout{
+  display: flex;
+  
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  flex-basis: 80%;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(50px);
+}
