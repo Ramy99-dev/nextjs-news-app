@@ -1,19 +1,23 @@
 import styles from '../styles/News.module.css'
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from 'next/router';
 
-const News = () => {
+const News = ({news}) => {
+    const router = useRouter();
     return ( 
-        <div className={styles.news}>
+        <div onClick={()=>{
+            router.replace(news.link)
+        }} className={styles.news}>
           <div className={styles.newsImage}>
-            <img className={styles.img} src="https://hbs-grand-vallat.fr/wp-content/uploads/2020/06/Breaking-news.jpg" alt="" srcset="" />
+            <img className={styles.img} src={news.media} alt="" srcset="" />
           </div>
           <div className={styles.newsTitle}>
-            <h1>Title</h1>
-            <FontAwesomeIcon className={styles.icon} icon={faStar}/>
+            <h4>{news.title}</h4>
+         
           </div>
           <div className={styles.description}>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex odit magni itaque explicabo, dolorum cupiditate natus ab esse iure vel nobis suscipit a doloribus possimus, aliquam exercitationem quam alias deserunt.</p>
+            <p>{news.summary}</p>
           </div>
         </div>
        );
