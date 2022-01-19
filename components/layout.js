@@ -1,8 +1,10 @@
+import { SearchProvider } from "../providers/SearchContext";
 import Nav from "./nav";
 import SideBar from "./siderbar";
 
 const Layout = ({children}) => {
     return (
+      <SearchProvider>
         <div className="layout">
             <SideBar></SideBar>
          <div className="content">
@@ -11,7 +13,7 @@ const Layout = ({children}) => {
          </div>
          
         </div> 
-       
+       </SearchProvider>
         
      );
 }
