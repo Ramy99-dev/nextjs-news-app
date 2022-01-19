@@ -1,6 +1,5 @@
 import styles from '../styles/Sidebar.module.css'
 import { faHome ,faUser , faSignOutAlt , faStar} from "@fortawesome/free-solid-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SideBar = () => {

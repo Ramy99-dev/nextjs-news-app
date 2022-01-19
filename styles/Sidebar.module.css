@@ -2,8 +2,10 @@
 .sidebar{
     flex-basis: 10vw;
     font-family: 'Pragati Narrow', sans-serif;
+    font-weight: bold;
     background: rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(50px);
+    height: auto;
 }
 .listItems{
     padding:0;

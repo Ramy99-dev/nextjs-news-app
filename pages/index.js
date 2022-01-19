@@ -7,6 +7,14 @@ export default function Home() {
   return (
     <div className={styles.newsContainer}>
         <News/>
+        <News/>
+        <News/>
+        <News/>
+        <News/>
+        <News/>
+        <News/>
+        <News/>
+
     </div>
   )
 }

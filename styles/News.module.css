@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap');
 .news{
     display: flex;
     flex-direction: column;
@@ -16,11 +15,21 @@
 
 .newsTitle>h1,.description>p{
     margin:0;
+    font-family: 'Pragati Narrow', sans-serif;
 }
 .newsTitle{
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap:70%;
 }
+.icon{
+    color:grey;
+}
+.icon:hover{
+    color:rgb(79, 62, 158);      ;
+}
+
 .description{
     padding:10px;
 }
