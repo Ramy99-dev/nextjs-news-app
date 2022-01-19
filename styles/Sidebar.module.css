@@ -33,6 +33,8 @@
 }
 .listItems>li>span{
     flex-basis: 90%;
+    position: absolute;
+    left:30%;
 }
 .listItems>li>FontAwesomeIcon{
     flex-basis: 10%;

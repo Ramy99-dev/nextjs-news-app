@@ -1,8 +1,17 @@
 import styles from '../styles/Nav.module.css'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {useEffect} from 'react';
 
 const Nav = () => {
+    
+    useEffect(async ()=>{
+        const data = await  fetch("https://restcountries.com/v3.1/all");
+        const countries = await data.json();
+        console.log(countries);
+    },[])
+
+
     return ( 
     <div className={styles.nav}>
         <div className={styles.options}>
