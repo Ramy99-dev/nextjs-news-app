@@ -27,20 +27,15 @@
     padding-left: 10px;
     font-family: 'Pragati Narrow', sans-serif;
 }
+.search>input:focus{
+   outline: none;
+}
 .search>button{
     height:1.74rem;
     width:2rem;
     color: white;
     background:rgb(79, 62, 158);
     border: none;
-}
-
-.calendar{
-    background: transparent;
-    border: none;
-    font-family: 'Pragati Narrow', sans-serif;
-}
-
-.calendar:focus,.select:focus,.search>input:focus{
-    outline: none;
+    border-start-end-radius: 10px;
+    border-end-end-radius: 10px;
 }
