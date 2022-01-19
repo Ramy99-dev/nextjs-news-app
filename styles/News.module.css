@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@700&display=swap');
+
+.news{
+    display: flex;
+    flex-direction: column;
+    flex-basis:20%;
+    background: rgba(255,255,255,0.5);
+    overflow: hidden;
+    border-radius: 20px;
+   
+}
+.img{
+    width: 100%;
+    height: auto;
+}
+
+.newsTitle>h1,.description>p{
+    margin:0;
+}
+.newsTitle{
+    display: flex;
+    justify-content: center;
+}
+.description{
+    padding:10px;
+}
