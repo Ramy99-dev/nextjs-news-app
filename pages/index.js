@@ -26,35 +26,40 @@ export async function getStaticProps()
 
 export default function Home({news}) {
   const searchWord = useSearch();
+  const [search , setSearch] = useState('')
   const [searchNews,setSearchNews] =useState([])
-  useEffect(async()=>{
-    console.log(`https://api.newscatcherapi.com/v2/search?q=${searchWord}&lang=fr`)
-    console.log(searchWord)
-    const data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${searchWord}&lang=fr`, {
-      method: 'GET',
-      headers: {
-       "x-api-key":"XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
-      }});
-   
-    const newsList =  await data.json();
-    console.log(newsList)
-    if(newsList.length>0)
-    {
-      let searchWord = [];
-      newsList.map((n)=>{
-        searchWord.push(n.articles);
-       
-      })
-      setSearchNews(searchWord)
-    }
+  useEffect(()=>{
+    setSearch(searchWord)
+    
+    
     
   },[searchWord])
   
+  useEffect(async()=>{
+
+    console.log(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=fr`)
+   
+      const data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=fr`, {
+        method: 'GET',
+        headers: {
+         "x-api-key":"XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
+        }});
+     
+      const newsList =  await data.json();
+      console.log(newsList)
+      
+        let searchWord = [];
+        newsList?.articles?.map((n)=>{
+          searchWord.push(n);
+         
+        })
+        setSearchNews(searchWord)
+
+  },[search])
 
  
   return (
     <div className={styles.newsContainer}>
-      <p>{searchWord}</p>
         {console.log(news)}
         {searchNews.length > 0 ? searchNews.map((n)=>{
           {console.log("test")}
