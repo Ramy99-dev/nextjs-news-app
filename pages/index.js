@@ -113,7 +113,10 @@ export default function Home({ news }) {
         </div>
         <div className={styles.pagination}>
           {[1,2,3,4,5].map((nbr)=>{
-            return <div onClick={()=>changePage(nbr)}>{nbr}</div>
+           
+            return <div onClick={()=>{ 
+              setIsLoaded(false);
+              changePage(nbr)}}>{nbr}</div>
           })}
         </div>
       </>
