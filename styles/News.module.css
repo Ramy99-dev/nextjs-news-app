@@ -34,3 +34,15 @@
 .description{
     padding:10px;
 }
+@media screen and (max-width: 930px) {
+    .news{
+        flex-basis: auto;
+        width: 70%;
+        
+       
+    }
+    .description>p{
+        display: none;
+    }
+    
+}

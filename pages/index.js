@@ -3,7 +3,7 @@ import Head from 'next/head'
 import News from '../components/News'
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
-import { useSearch } from '../providers/SearchContext';
+import { useLanguage, useSearch } from '../providers/SearchContext';
 import { Oval } from 'react-loader-spinner';
 export async function getStaticProps() {
 
@@ -28,7 +28,9 @@ export async function getStaticProps() {
 
 export default function Home({ news }) {
   const searchWord = useSearch();
+  const choosenLanguage = useLanguage();
   const [search, setSearch] = useState('')
+  const [language,setLanguage] = useState('')
   const [searchNews, setSearchNews] = useState([])
   const [isLoaded , setIsLoaded] = useState(false)
   useEffect(() => {
@@ -37,6 +39,38 @@ export default function Home({ news }) {
     
     
   }, [searchWord])
+  useEffect(async()=>{
+    let data ;
+    if(search !='')
+    {
+       data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=en&page_size=8&page=1`, {
+        method: 'GET',
+        headers: {
+          "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
+        }
+      });
+    }
+    else{
+      data = await fetch(`https://api.newscatcherapi.com/v2/search?q=all&lang=${choosenLanguage}&page_size=8&page=1`, {
+        method: 'GET',
+        headers: {
+          "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
+        }
+      });
+    }
+    
+
+    const newsList = await data.json();
+
+
+    let searchWord = [];
+    newsList?.articles?.map((n) => {
+      searchWord.push(n);
+
+    })
+    setIsLoaded(true)
+    setSearchNews(searchWord)
+  },[choosenLanguage])
 
   useEffect(async () => {
 

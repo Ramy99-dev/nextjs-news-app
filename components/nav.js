@@ -1,33 +1,25 @@
 import styles from '../styles/Nav.module.css'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {useEffect , useState} from 'react';
-import { useSearchUpdate ,  useSearch } from '../providers/SearchContext';
-import Home, { refreshHome } from '../pages';
+import { useSearchUpdate ,  useSearch, useUpdateLanguage } from '../providers/SearchContext';
 
 const Nav = () => {
-    const [countriesList , setCountries] = useState([]);
     let searchWord ="";
     const search = useSearch();
     const updateWord = useSearchUpdate();
+    const changeLanguage = useUpdateLanguage();
     
-    
-
-
-
-
     return ( 
     <div className={styles.nav}>
         <div className={styles.options}>
-     
-      
-
-        <select className={styles.select}>
-            <option  value="Sports">English</option>
-            <option  value="Science">Arabe</option>
-            <option  value="Science">Espagnol</option>
-            <option  value="Science">French</option>
-            <option  value="Science">Italien</option>
+        <select onChange={(e)=>{
+            changeLanguage(e.target.value)
+        }} className={styles.select}>
+            <option  value="en">English</option>
+            <option  value="ar">Arabe</option>
+            <option  value="es">Espagnol</option>
+            <option  value="fr">French</option>
+            <option  value="it">Italien</option>
         </select>
         </div>
         

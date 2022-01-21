@@ -71,3 +71,27 @@
 .breaking{
     background-color: rgba(255,0,0,.3);
 }
+
+@media screen and (max-width: 1290px) {
+    .listItems>li>span,.more{
+          display: none;
+    }
+    .listItems>li{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding:0;
+    }
+    .hidden{
+        display: flex !important;
+    }
+    .sidebar{
+        flex-basis :8vw;
+    }
+    .breaking{
+        background: transparent;
+    }
+    .listItems>li:hover{
+        background:transparent;
+    }
+}

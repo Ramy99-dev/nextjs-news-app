@@ -2,10 +2,12 @@
 .newsContainer{
     display: flex;
     gap:10px;
+    flex-direction: row;
     margin-left:20px;
     flex-wrap: wrap;
     justify-content: center;
     height:auto;
+    flex-wrap: wrap;
 }
 .pagination{
     margin : 10px 0;
@@ -34,4 +36,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-width: 930px) {
+    .newsContainer{
+        flex-direction: column !important;
+        width: 90vw;
+        flex-wrap: wrap; 
+        justify-content: start; 
+        align-items: center;
+
+    }
 }
