@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useSearch } from '../providers/SearchContext';
 export async function getStaticProps() {
 
-  const data = await fetch("https://api.newscatcherapi.com/v2/search?q=all&lang=en&page_size=8", {
+  const data = await fetch("https://api.newscatcherapi.com/v2/search?q=all&lang=en&page_size=8&page=1", {
     method: 'GET',
     headers: {
       "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
@@ -30,17 +30,17 @@ export default function Home({ news }) {
   const [search, setSearch] = useState('')
   const [searchNews, setSearchNews] = useState([])
   useEffect(() => {
-    setSearch(searchWord)
-
-
-
+    
+      setSearch(searchWord)
+    
+    
   }, [searchWord])
 
   useEffect(async () => {
 
     console.log(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=fr`)
-
-    const data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=fr`, {
+    console.log("HERE")
+    const data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=en&page_size=8&page=1`, {
       method: 'GET',
       headers: {
         "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
@@ -59,6 +59,26 @@ export default function Home({ news }) {
 
   }, [search])
 
+  const changePage =async (p)=>{
+     console.log(search)
+    const data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=en&page_size=8&page=${p}`, {
+      method: 'GET',
+      headers: {
+        "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
+      }
+    });
+
+    const newsList = await data.json();
+
+
+    let searchWord = [];
+    newsList?.articles?.map((n) => {
+      searchWord.push(n);
+
+    })
+    setSearchNews(searchWord)
+  }
+
 
   return (
     <>
@@ -73,11 +93,9 @@ export default function Home({ news }) {
 
       </div>
       <div className={styles.pagination}>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
+        {[1,2,3,4,5].map((nbr)=>{
+          return <div onClick={()=>changePage(nbr)}>{nbr}</div>
+        })}
       </div>
     </>
   )
