@@ -4,6 +4,7 @@ import News from '../components/News'
 import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import { useSearch } from '../providers/SearchContext';
+import { Oval } from 'react-loader-spinner';
 export async function getStaticProps() {
 
   const data = await fetch("https://api.newscatcherapi.com/v2/search?q=all&lang=en&page_size=8&page=1", {
@@ -95,7 +96,7 @@ export default function Home({ news }) {
   }
   if(isLoaded==false)
   {
-    return <div>Loading</div>
+    return  <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
   }
   else
   {

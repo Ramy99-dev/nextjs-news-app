@@ -27,6 +27,11 @@
 .pagination>div:hover{
     color:white;
     background: rgb(79, 62, 158);
-   
-   
+}
+
+.loader{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
