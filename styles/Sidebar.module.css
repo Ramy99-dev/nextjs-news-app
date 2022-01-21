@@ -11,6 +11,9 @@
     padding:0;
     list-style-type: none;
     padding:10px;
+    display: flex;
+    flex-direction: column;
+    gap:5px;
 }
 .listItems>li{
     height:2rem;
@@ -20,6 +23,7 @@
     display: flex;
     align-items: center;
     gap:10%;
+    
     
 }
 .listItems>li:first-child{
@@ -37,11 +41,33 @@
     flex-basis: 90%;
     position: absolute;
     left:30%;
+
 }
 .listItems>li>FontAwesomeIcon{
     flex-basis: 10%;
 }
-.listItems>li:hover{
+.listItems>li:hover:not(.breaking){
     color:rgb(79, 62, 158);
     background:rgba(79, 62, 158,0.3);
+}
+.more{
+    display: flex;
+    justify-content: center ;
+    margin-top: 10px;
+}
+.more>button{
+    background: rgb(79, 62, 158);
+    color:white;
+    font-family: 'Pragati Narrow', sans-serif;
+    font-weight: bold;
+    border: none;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+.hideBtn,.hidden{
+    display: none !important;
+}
+
+.breaking{
+    background-color: rgba(255,0,0,.3);
 }

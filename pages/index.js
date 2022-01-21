@@ -29,6 +29,7 @@ export default function Home({ news }) {
   const searchWord = useSearch();
   const [search, setSearch] = useState('')
   const [searchNews, setSearchNews] = useState([])
+  const [isLoaded , setIsLoaded] = useState(false)
   useEffect(() => {
     
       setSearch(searchWord)
@@ -39,7 +40,7 @@ export default function Home({ news }) {
   useEffect(async () => {
 
     console.log(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=fr`)
-    console.log("HERE")
+    
     const data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=en&page_size=8&page=1`, {
       method: 'GET',
       headers: {
@@ -55,18 +56,31 @@ export default function Home({ news }) {
       searchWord.push(n);
 
     })
+    setIsLoaded(true)
     setSearchNews(searchWord)
 
   }, [search])
 
   const changePage =async (p)=>{
-     console.log(search)
-    const data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=en&page_size=8&page=${p}`, {
-      method: 'GET',
-      headers: {
-        "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
-      }
-    });
+    let data ;
+    if(search !='')
+    {
+       data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${search}&lang=en&page_size=8&page=${p}`, {
+        method: 'GET',
+        headers: {
+          "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
+        }
+      });
+    }
+    else{
+      data = await fetch(`https://api.newscatcherapi.com/v2/search?q=all&lang=en&page_size=8&page=${p}`, {
+        method: 'GET',
+        headers: {
+          "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
+        }
+      });
+    }
+    
 
     const newsList = await data.json();
 
@@ -76,27 +90,34 @@ export default function Home({ news }) {
       searchWord.push(n);
 
     })
+    setIsLoaded(true)
     setSearchNews(searchWord)
   }
-
-
-  return (
-    <>
-      <div className={styles.newsContainer}>
-        {console.log(news)}
-        {searchNews.length > 0 ? searchNews.map((n) => {
-          { console.log("test") }
-          return <News news={n} />
-        }) : news.map((n) => {
-          return <News news={n} />
-        })}
-
-      </div>
-      <div className={styles.pagination}>
-        {[1,2,3,4,5].map((nbr)=>{
-          return <div onClick={()=>changePage(nbr)}>{nbr}</div>
-        })}
-      </div>
-    </>
-  )
+  if(isLoaded==false)
+  {
+    return <div>Loading</div>
+  }
+  else
+  {
+    return (
+      <>
+        <div className={styles.newsContainer}>
+          {console.log(news)}
+          {searchNews.length > 0 ? searchNews.map((n) => {
+            { console.log("test") }
+            return <News news={n} />
+          }) : news.map((n) => {
+            return <News news={n} />
+          })}
+  
+        </div>
+        <div className={styles.pagination}>
+          {[1,2,3,4,5].map((nbr)=>{
+            return <div onClick={()=>changePage(nbr)}>{nbr}</div>
+          })}
+        </div>
+      </>
+    )
+  }
+  
 }
