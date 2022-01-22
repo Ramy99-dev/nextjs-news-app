@@ -1,35 +1,20 @@
-import { useState } from 'react';
+import { useState ,useEffect } from 'react';
 import News from '../components/News';
 import styles from '../styles/Home.module.css'
 import { Oval } from 'react-loader-spinner';
+import { useFetch } from '../hooks/useFetch';
+import { useLanguage } from '../providers/SearchContext';
+
+
 const TOPICS = ["covid", "science", "tech", "sport", "astronomy", "nature"]
 
 
 export async function getStaticProps(context) {
     const topic = context.params.name;
-    let data;
-    if (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) {
-        data = await fetch(`https://api.newscatcherapi.com/v2/search?q=all&lang=en&page_size=8&page=1&topic=${topic}`, {
-            method: 'GET',
-            headers: {
-                "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
-            }
-        });
-    }
-    else {
-        data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${topic}&lang=en&page_size=8&page=1`, {
-            method: 'GET',
-            headers: {
-                "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
-            }
-        });
-    }
-
-    const newsList = await data.json();
-
+    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await useFetch("all", topic , "en" , 1) :await useFetch(topic, null , "en" , 1) ;
     return {
         props: {
-            news: newsList.articles,
+            news: data,
             topic
         },
         revalidate: 6000
@@ -49,41 +34,29 @@ export function getStaticPaths() {
 
 
 const NewsByCateg = ({ news, topic }) => {
-
-    const [isLoaded, setIsLoaded] = useState(true);
+    const choosenLanguage = useLanguage();
+    const [isLoaded, setIsLoaded] = useState(false);
     const [searchNews, setSearchNews] = useState([]);
+    const [topicContent , setTopicContent] = useState();
+
+
+   /*  useEffect(()=>{
+        setIsLoaded(false)
+    },[topic])
+    useEffect(()=>{setIsLoaded(true)},[news])*/
     const changePage = async (p) => {
 
-        let data;
-        console.log("TOPIC")
-        console.log(topic)
-        if (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) {
-            data = await fetch(`https://api.newscatcherapi.com/v2/search?q=all&lang=en&page_size=8&page=${p}&topic=${topic}`, {
-                method: 'GET',
-                headers: {
-                    "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
-                }
-            });
-        }
-        else {
-            data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${topic}&lang=en&page_size=8&page=${p}`, {
-                method: 'GET',
-                headers: {
-                    "x-api-key": "XQ0OyzjNx98O-wH9uW2r5EsmmPXm0zS_NFHC8Pf4meI"
-                }
-            });
-        }
-
-        const newsList = await data.json();
-
-        let searchWord = [];
-        newsList?.articles?.map((n) => {
-            searchWord.push(n);
-
-        })
+        const  data =  (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ?  await useFetch("all" , topic , choosenLanguage , p) : await useFetch(topic , null , choosenLanguage , p );
         setIsLoaded(true)
-        setSearchNews(searchWord)
+        setSearchNews(data)
     }
+
+    useEffect(async()=>{
+        setIsLoaded(false)
+        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await useFetch("all", topic , choosenLanguage , 1) :await useFetch(topic, null , choosenLanguage , 1) ;
+        setSearchNews(data)
+        setIsLoaded(true)
+      },[choosenLanguage])
 
     if (isLoaded == false) {
         return <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
