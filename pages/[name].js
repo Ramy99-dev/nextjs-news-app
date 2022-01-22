@@ -40,23 +40,28 @@ const NewsByCateg = ({ news, topic }) => {
     const [topicContent , setTopicContent] = useState();
 
 
-   /*  useEffect(()=>{
-        setIsLoaded(false)
-    },[topic])
-    useEffect(()=>{setIsLoaded(true)},[news])*/
+   
     const changePage = async (p) => {
-
+        
         const  data =  (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ?  await useFetch("all" , topic , choosenLanguage , p) : await useFetch(topic , null , choosenLanguage , p );
         setIsLoaded(true)
         setSearchNews(data)
     }
 
     useEffect(async()=>{
+        
         setIsLoaded(false)
         const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await useFetch("all", topic , choosenLanguage , 1) :await useFetch(topic, null , choosenLanguage , 1) ;
         setSearchNews(data)
         setIsLoaded(true)
       },[choosenLanguage])
+      useEffect(async()=>{
+        
+        setIsLoaded(false)
+        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await useFetch("all", topic , choosenLanguage , 1) :await useFetch(topic, null , choosenLanguage , 1) ;
+        setSearchNews(data)
+        setIsLoaded(true)
+      },[topic])
 
     if (isLoaded == false) {
         return <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
@@ -66,8 +71,8 @@ const NewsByCateg = ({ news, topic }) => {
         return (
             <>
                 <div className={styles.newsContainer}>
-                    {console.log(news)}
-                    {searchNews.length > 0 ? searchNews.map((n) => {
+                    {console.log(searchNews)}
+                    {searchNews.length > 0  ? searchNews.map((n) => {
                         { console.log("test") }
                         return <News news={n} />
                     }) : news.map((n) => {
