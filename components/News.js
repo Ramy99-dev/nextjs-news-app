@@ -11,7 +11,7 @@ const News = ({news}) => {
             router.replace(news.link)
         }} className={styles.news}>
           <div className={styles.newsImage}>
-            <img className={styles.img} src={news.media} alt="" srcset="" />
+            <img className={styles.img} src={news.media}  />
           </div>
           <div className={styles.newsTitle}>
             <h4>{news.title}</h4>

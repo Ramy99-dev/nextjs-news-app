@@ -2,7 +2,7 @@ import { useState ,useEffect } from 'react';
 import News from '../components/News';
 import styles from '../styles/Home.module.css'
 import { Oval } from 'react-loader-spinner';
-import { useFetch } from '../hooks/useFetch';
+import { Fetch } from '../hooks/useFetch';
 import { useLanguage } from '../providers/SearchContext';
 
 
@@ -11,7 +11,7 @@ const TOPICS = ["covid", "science", "tech", "sport", "astronomy", "nature"]
 
 export async function getStaticProps(context) {
     const topic = context.params.name;
-    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await useFetch("all", topic , "en" , 1) :await useFetch(topic, null , "en" , 1) ;
+    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic , "en" , 1) :await Fetch(topic, null , "en" , 1) ;
     return {
         props: {
             news: data,
@@ -43,7 +43,7 @@ const NewsByCateg = ({ news, topic }) => {
    
     const changePage = async (p) => {
         
-        const  data =  (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ?  await useFetch("all" , topic , choosenLanguage , p) : await useFetch(topic , null , choosenLanguage , p );
+        const  data =  (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ?  await Fetch("all" , topic , choosenLanguage , p) : await Fetch(topic , null , choosenLanguage , p );
         setIsLoaded(true)
         setSearchNews(data)
     }
@@ -51,14 +51,14 @@ const NewsByCateg = ({ news, topic }) => {
     useEffect(async()=>{
         
         setIsLoaded(false)
-        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await useFetch("all", topic , choosenLanguage , 1) :await useFetch(topic, null , choosenLanguage , 1) ;
+        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic , choosenLanguage , 1) :await Fetch(topic, null , choosenLanguage , 1) ;
         setSearchNews(data)
         setIsLoaded(true)
       },[choosenLanguage])
       useEffect(async()=>{
         
         setIsLoaded(false)
-        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await useFetch("all", topic , choosenLanguage , 1) :await useFetch(topic, null , choosenLanguage , 1) ;
+        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic , choosenLanguage , 1) :await Fetch(topic, null , choosenLanguage , 1) ;
         setSearchNews(data)
         setIsLoaded(true)
       },[topic])
@@ -74,16 +74,16 @@ const NewsByCateg = ({ news, topic }) => {
                     {console.log(searchNews)}
                     {searchNews.length > 0  ? searchNews.map((n) => {
                         { console.log("test") }
-                        return <News news={n} />
+                        return <News key={n.title} news={n} />
                     }) : news.map((n) => {
-                        return <News news={n} />
+                        return <News key={n.title} news={n} />
                     })}
 
                 </div>
                 <div className={styles.pagination}>
                     {[1, 2, 3, 4, 5].map((nbr) => {
 
-                        return <div onClick={() => {
+                        return <div key={nbr} onClick={() => {
                             setIsLoaded(false);
                             changePage(nbr)
                         }

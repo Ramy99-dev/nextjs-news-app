@@ -5,20 +5,20 @@ import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react';
 import { useLanguage, useSearch } from '../providers/SearchContext';
 import { Oval } from 'react-loader-spinner';
-import { useFetch } from '../hooks/useFetch';
+import { Fetch } from '../hooks/useFetch';
 
 
 
 export async function getStaticProps() {
 
   
-  const data = await useFetch("all" , null ,"en" , 1)
+  const data = await Fetch("all" , null ,"en" , 1)
 
   return {
     props: {
       news: data
-    },
-    revalidate: 6000
+    }
+   
   }
 }
 
@@ -36,23 +36,24 @@ export default function Home({ news }) {
       setSearch(searchWord)
   }, [searchWord])
   useEffect(async()=>{
+    
     setIsLoaded(false)
     let data = null ;
-    (search !='') ?   data =  await useFetch(search , null , choosenLanguage , 1) :  data =  await useFetch("all" , null , choosenLanguage , 1)
+    (search !='') ?   data =  await Fetch(search , null , choosenLanguage , 1) :  data =  await Fetch("all" , null , choosenLanguage , 1)
     setSearchNews(data)
     setIsLoaded(true)
   },[choosenLanguage])
 
   useEffect(async () => {
     setIsLoaded(false)
-    let data = await useFetch(search , null , choosenLanguage , 1);
+    let data = await Fetch(search , null , choosenLanguage , 1);
     setSearchNews(data)
     setIsLoaded(true)
   }, [search])
 
   const changePage =async (p)=>{
     let data = null ;
-    (search !='') ? data = await useFetch(search , null , "en" , p) :   data = await useFetch("all" , null , "en" , p);
+    (search !='') ? data = await Fetch(search , null , "en" , p) :   data = await Fetch("all" , null , "en" , p);
     setIsLoaded(true)
     
     setSearchNews(data)
@@ -70,16 +71,16 @@ export default function Home({ news }) {
           {console.log(news)}
           {searchNews.length > 0 ? searchNews.map((n) => {
             { console.log("test") }
-            return <News news={n} />
+            return <News key={n.title} news={n} />
           }) : news.map((n) => {
-            return <News news={n} />
+            return <News key={n.title} news={n} />
           })}
   
         </div>
         <div className={styles.pagination}>
           {[1,2,3,4,5].map((nbr)=>{
            
-            return <div onClick={()=>{ 
+            return <div key={nbr} onClick={()=>{ 
               setIsLoaded(false);
               changePage(nbr)}}>{nbr}</div>
           })}

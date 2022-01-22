@@ -1,4 +1,4 @@
-export const useFetch = async(question,topic,language,page)=>{
+export const Fetch = async(question,topic,language,page)=>{
 
     let data = null ; 
     console.log(question)
