@@ -41,4 +41,13 @@
     border-start-end-radius: 10px;
     border-end-end-radius: 10px;
 }
-
+.user{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    margin-top:-10px;
+}
+.user_img{
+    border-radius: 50px;
+}

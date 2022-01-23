@@ -69,7 +69,7 @@ export default function Home({ news }) {
     return (
       <>
         <div className={styles.newsContainer}>
-          <Link href="/api/auth/login">Login</Link>
+        
         {console.log(news)}
           {searchNews.length > 0 ? searchNews.map((n) => {
             { console.log("test") }
