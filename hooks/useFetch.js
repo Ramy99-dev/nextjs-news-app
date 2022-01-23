@@ -7,7 +7,7 @@ export const Fetch = async(question,topic,language,page)=>{
          data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${question}&lang=${language}&page_size=8&page=${page}`, {
             method: 'GET',
             headers: {
-              "x-api-key": "lohdLGXKQ6x_I_0uZ5AdHjQG8id8NCuWinDtB_Mcp4U"
+              "x-api-key": "OwBiuV9I9T6VhaDV-yONkS2hVnWXKrWmUppcjlkYT6E"
             }
           });   
     }
@@ -15,7 +15,7 @@ export const Fetch = async(question,topic,language,page)=>{
          data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${question}&lang=${language}&page_size=8&page=${page}&topic=${topic}`, {
         method: 'GET',
         headers: {
-          "x-api-key": "lohdLGXKQ6x_I_0uZ5AdHjQG8id8NCuWinDtB_Mcp4U"
+          "x-api-key": "OwBiuV9I9T6VhaDV-yONkS2hVnWXKrWmUppcjlkYT6E"
         }
       });
     }
