@@ -24,7 +24,7 @@ export const Fetch = async(question,topic,language,page)=>{
   
       console.log(newsList)
       let searchWord = [];
-      newsList?.articles?.map((n) => {
+      newsList?.articles?.splice(0,8).map((n) => {
         searchWord.push(n);
   
       })

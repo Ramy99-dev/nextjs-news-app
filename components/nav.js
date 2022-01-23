@@ -25,12 +25,16 @@ const Nav = () => {
         
        
         <div className={styles.search}>
-            <input onChange={(e)=>{
+            <input onClick={(e)=>{
                  searchWord = e.target.value;
             }} type="text" placeholder="Search for anything ..." />
             <button onClick={()=>{
+                   if(searchWord != "en")
+                   {
                     updateWord(searchWord)
                     console.log(search)
+                   }
+                   
                 
             }}><FontAwesomeIcon icon={faSearch}/></button>
         </div>

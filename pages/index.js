@@ -30,7 +30,7 @@ export default function Home({ news }) {
   const choosenLanguage = useLanguage();
   const [search, setSearch] = useState('')
   const [searchNews, setSearchNews] = useState([])
-  const [isLoaded , setIsLoaded] = useState(false)
+  const [isLoaded , setIsLoaded] = useState(true)
   useEffect(() => {
       setIsLoaded(false)
       setSearch(searchWord)
@@ -68,7 +68,7 @@ export default function Home({ news }) {
     return (
       <>
         <div className={styles.newsContainer}>
-          {console.log(news)}
+        {console.log(news)}
           {searchNews.length > 0 ? searchNews.map((n) => {
             { console.log("test") }
             return <News key={n.title} news={n} />
