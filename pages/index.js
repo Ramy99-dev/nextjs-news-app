@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useLanguage, useSearch } from '../providers/SearchContext';
 import { Oval } from 'react-loader-spinner';
 import { Fetch } from '../hooks/useFetch';
+import Link from 'next/link';
 
 
 
@@ -68,6 +69,7 @@ export default function Home({ news }) {
     return (
       <>
         <div className={styles.newsContainer}>
+          <Link href="/api/auth/login">Login</Link>
         {console.log(news)}
           {searchNews.length > 0 ? searchNews.map((n) => {
             { console.log("test") }
