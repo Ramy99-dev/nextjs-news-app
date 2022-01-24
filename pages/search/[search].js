@@ -39,7 +39,7 @@ export default function Search({ news , searchWord }) {
     data =  await Fetch(searchWord , null , choosenLanguage , 1) 
     setSearchNews(data)
     setIsLoaded(true)
-  },[choosenLanguage])
+  },[choosenLanguage  , searchWord])
 
   
 
@@ -62,10 +62,8 @@ export default function Search({ news , searchWord }) {
         <div className={styles.newsContainer}>
         
 
-          {searchNews.length > 0 ? searchNews.map((n) => {
+          {searchNews.length > 0 && searchNews.map((n) => {
       
-            return <News key={n.title} news={n} />
-          }) : news.map((n) => {
             return <News key={n.title} news={n} />
           })}
   

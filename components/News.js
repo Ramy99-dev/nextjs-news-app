@@ -4,9 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-const myLoader = ({ src, width, quality }) => {
-  return `https://example.com/${src}?w=${width}&q=${quality || 75}`
-}
+
 
 
 const News = ({news}) => {
@@ -16,11 +14,11 @@ const News = ({news}) => {
             router.replace(news.link)
         }} className={styles.news}>
           <div className={styles.newsImage}>
-            <Image className={styles.img} loader={() => news.media} src={news.media} width={600} height={300}  />
+           {news.media ?  <Image className={styles.img} loader={() => news.media} src={news.media} width={600} height={300}  />
+           :<Image className={styles.img} loader={() => 'https://www.efeca.com/wp-content/uploads/2015/02/world-news-headlines-15-widescreen-wallpaper.jpg'} src={"https://www.efeca.com/wp-content/uploads/2015/02/world-news-headlines-15-widescreen-wallpaper.jpg"} width={600} height={300}  />} 
           </div>
           <div className={styles.newsTitle}>
             <h4>{news.title}</h4>
-         
           </div>
           <div className={styles.description}>
             <p>{news.summary}</p>

@@ -1,7 +1,7 @@
 import styles from '../styles/Nav.module.css'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  useUpdateLanguage } from '../providers/SearchContext';
+import {useUpdateLanguage } from '../providers/SearchContext';
 import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router'
@@ -17,7 +17,10 @@ const Nav = () => {
     <div className={styles.nav}>
         <div className={styles.options}>
         <select onChange={(e)=>{
-            changeLanguage(e.target.value)
+          
+                changeLanguage(e.target.value)
+
+        
         }} className={styles.select}>
             <option  value="en">English</option>
             <option  value="ar">Arabe</option>
@@ -34,9 +37,8 @@ const Nav = () => {
                  searchWord = e.target.value;
             }} type="text" placeholder="Search for anything ..." />
             <button onClick={()=>{
-                  router.push(`/search/${searchWord}`).then(()=>{
-                      router.reload()
-                  })
+
+                  router.push(`/search/${searchWord}`)
                 
             }}><FontAwesomeIcon icon={faSearch}/></button>
             

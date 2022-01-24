@@ -4,7 +4,7 @@ import styles from '../styles/Search.module.css'
 import { Oval } from 'react-loader-spinner';
 import { Fetch } from '../hooks/useFetch';
 import { useLanguage } from '../providers/SearchContext';
-
+import { useRouter } from 'next/router';
 
 const TOPICS = ["covid", "science", "tech", "sport", "astronomy", "nature"]
 
@@ -24,12 +24,13 @@ export async function getServerSideProps(context) {
 
 
 const NewsByCateg = ({ news, topic }) => {
+    const router = useRouter();
     const choosenLanguage = useLanguage();
     const [isLoaded, setIsLoaded] = useState(true);
-    const [searchNews, setSearchNews] = useState([]);
+    const [searchNews, setSearchNews] = useState();
     const [topicContent, setTopicContent] = useState();
 
-
+    
 
     const changePage = async (p) => {
 
@@ -39,9 +40,15 @@ const NewsByCateg = ({ news, topic }) => {
     }
 
     useEffect(async () => {
-
+        const data = null ;
         setIsLoaded(false)
-        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, choosenLanguage, 1) : await Fetch(topic, null, choosenLanguage, 1);
+        if(choosenLanguage !="en")
+        {
+    
+            data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, choosenLanguage, 1) : await Fetch(topic, null, choosenLanguage, 1);
+    
+        }
+        
         setSearchNews(data)
         setIsLoaded(true)
     }, [choosenLanguage])
@@ -57,12 +64,16 @@ const NewsByCateg = ({ news, topic }) => {
         return <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
 
     }
+    else if(searchNews?.length == 0 && searchNews )
+    {
+        return <div>No Data !</div>
+    }
     else {
         return (
             <>
                 <div className={styles.newsContainer}>
                     {console.log(news)}
-                    {searchNews.length > 0 ? searchNews.map((n) => {
+                    {searchNews  ? searchNews.map((n) => {
                         { console.log("test") }
                         return <News key={n.title} news={n} />
                     }) : news.map((n) => {
