@@ -6,10 +6,14 @@ import { Fetch } from '../hooks/useFetch';
 import { useLanguage } from '../providers/SearchContext';
 import { useRouter } from 'next/router';
 
+
 const TOPICS = ["covid", "science", "tech", "sport", "astronomy", "nature"]
 
 
 export async function getServerSideProps(context) {
+
+   
+
     const topic = context.params.name;
     const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, "en", 1) : await Fetch(topic, null, "en", 1);
     return {
@@ -64,7 +68,7 @@ const NewsByCateg = ({ news, topic }) => {
         return <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
 
     }
-    else if(searchNews?.length == 0 && searchNews )
+    else if(searchNews?.length == 0 && searchNews!= null && choosenLanguage !="en")
     {
         return <div>No Data !</div>
     }
