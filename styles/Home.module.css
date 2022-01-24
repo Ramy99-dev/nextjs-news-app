@@ -1,50 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@700&display=swap');
-.newsContainer{
-    display: flex;
-    gap:10px;
-    flex-direction: row;
-    margin-left:20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    height:auto;
-    flex-wrap: wrap;
-}
-.pagination{
-    margin : 10px 0;
-    justify-content: center;
+@import url('https://fonts.googleapis.com/css2?family=Enriqueta:wght@700&display=swap');
+.content{
     display:flex;
-    gap:10px;
-    cursor: pointer;
+    flex-direction: column;
 }
-.pagination>div{
-    color:rgb(79, 62, 158);
-    background: rgba(255,255,255,.5);
-    padding:10px 15px;
-    border-radius: 10px;
-    font-family: 'Pragati Narrow', sans-serif;
-    font-weight: bold;
-    transition: all 0.6s;
-   
+.container {
+  display:flex;
+  font-family: 'Enriqueta', serif;
+  justify-content: center;
+  font-weight: bold;
+  flex-wrap: wrap;
 }
-.pagination>div:hover{
-    color:white;
-    background: rgb(79, 62, 158);
-}
+.container>img{
 
-.loader{
-    height: 100vh;
+        width: 100%;
+        height: auto;
+      
+}
+.text{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    flex-basis: 50%;
+    
 }
-
-@media screen and (max-width: 930px) {
-    .newsContainer{
-        flex-direction: column !important;
-        width: 90vw;
-        flex-wrap: wrap; 
-        justify-content: start; 
-        align-items: center;
-
+@media screen and (max-width: 1000px) {
+    .container{
+        justify-content: center;
+    }
+    .text>p{
+        width:100vw;
+        font-size:8px;
+        padding:5px;
     }
 }

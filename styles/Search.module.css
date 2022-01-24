@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@700&display=swap');
+.newsContainer{
+    display: flex;
+    gap:10px;
+    flex-direction: row;
+    margin-left:20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    height:auto;
+    flex-wrap: wrap;
+}
+.pagination{
+    margin : 10px 0;
+    justify-content: center;
+    display:flex;
+    gap:10px;
+    cursor: pointer;
+}
+.pagination>div{
+    color:rgb(79, 62, 158);
+    background: rgba(255,255,255,.5);
+    padding:10px 15px;
+    border-radius: 10px;
+    font-family: 'Pragati Narrow', sans-serif;
+    font-weight: bold;
+    transition: all 0.6s;
+   
+}
+.pagination>div:hover{
+    color:white;
+    background: rgb(79, 62, 158);
+}
+
+.loader{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 930px) {
+    .newsContainer{
+        flex-direction: column !important;
+        width: 90vw;
+        flex-wrap: wrap; 
+        justify-content: start; 
+        align-items: center;
+
+    }
+}

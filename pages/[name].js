@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import News from '../components/News';
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Search.module.css'
 import { Oval } from 'react-loader-spinner';
 import { Fetch } from '../hooks/useFetch';
 import { useLanguage } from '../providers/SearchContext';

@@ -1,17 +1,16 @@
 import styles from '../styles/Nav.module.css'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSearchUpdate ,  useSearch, useUpdateLanguage } from '../providers/SearchContext';
-import Link from 'next/link';
+import {  useUpdateLanguage } from '../providers/SearchContext';
 import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
+import { useRouter } from 'next/router'
 
 
 const Nav = () => {
+    const router = useRouter()
     const { user, error, isLoading } = useUser();
     let searchWord ="";
-    const search = useSearch();
-    const updateWord = useSearchUpdate();
     const changeLanguage = useUpdateLanguage();
     
     return ( 
@@ -31,23 +30,19 @@ const Nav = () => {
         
        
         <div className={styles.search}>
-            <input onClick={(e)=>{
+            <input onChange={(e)=>{
                  searchWord = e.target.value;
             }} type="text" placeholder="Search for anything ..." />
             <button onClick={()=>{
-                   if(searchWord != "en")
-                   {
-                    updateWord(searchWord)
-                    console.log(search)
-                   }
-                   
+                  router.push(`/search/${searchWord}`).then(()=>{
+                      router.reload()
+                  })
                 
             }}><FontAwesomeIcon icon={faSearch}/></button>
             
         </div>
         <div className="auth">
-           {!user  &&  <Link href="/api/auth/login">Login</Link> }
-           {user && <div className={styles.user}><Image className={styles.user_img} loader={() => user.picture} src={user.picture} width={50} height={50}  /><Link href="/api/auth/logout">Logout</Link></div>}
+           {user && <div className={styles.user}><Image className={styles.user_img} loader={() => user.picture} src={user.picture} width={50} height={50}  /></div>}
         </div>
 
     </div> );

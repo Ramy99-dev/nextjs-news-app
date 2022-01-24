@@ -1,94 +1,30 @@
-import Head from 'next/head'
+import Image from 'next/image';
 
-import News from '../components/News'
 import styles from '../styles/Home.module.css'
-import { useEffect, useState } from 'react';
-import { useLanguage, useSearch } from '../providers/SearchContext';
-import { Oval } from 'react-loader-spinner';
-import { Fetch } from '../hooks/useFetch';
-import Link from 'next/link';
 
-
-
-export async function getStaticProps() {
-
-  
-  const data = await Fetch("all" , null ,"en" , 1)
-
-  return {
-    props: {
-      news: data
-    }
-   
-  }
+const Home = () => {
+  return ( <div className={styles.content}>
+    <div className={styles.container}>
+              <Image src="/img/banner1.svg" height={500} width={700}/>
+              <div className={styles.text}>
+                <h1>News App</h1>
+                <h2>Get news from all around the world</h2>
+              </div>
+           </div> 
+           <div className={styles.container}>
+           <div className={styles.text}>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ipsam id accusantium neque quos repudiandae ipsa blanditiis sequi rerum! Ut eveniet iusto sint laborum quisquam iste, facilis nulla rem suscipit?
+                Explicabo consequatur dicta, ut facere expedita corporis ducimus eos dolore! Tempore architecto mollitia optio, iusto quam molestias laudantium facere amet ipsum natus consequatur impedit repellat commodi, a quasi reprehenderit incidunt!
+                Excepturi quae nostrum omnis nulla. Accusantium dolorum quia sapiente sed quod corporis alias hic reprehenderit dignissimos nisi! Explicabo, harum praesentium expedita, placeat beatae qui, consequuntur exercitationem suscipit repellendus labore nihil?
+                Voluptate iusto expedita corporis nostrum aut, ullam, id facere consequuntur esse consectetur, veniam laudantium sunt soluta ea quis aliquam. Omnis in aliquid repellat natus quia praesentium, saepe assumenda quasi ipsum.
+                Exercitationem at veniam, accusamus adipisci, ut aliquam odit aliquid tempore laborum quis voluptatum eaque corrupti distinctio, necessitatibus harum optio dolor dolore perspiciatis? Ducimus similique eius velit quaerat, alias ex aliquam?
+                Distinctio, cum velit expedita pariatur consequatur perspiciatis repellat dolorum maxime optio cumque aut nostrum, inventore officiis at. Sint iusto eius necessitatibus est debitis? Quam aspernatur asperiores, ab adipisci dolorem temporibus.
+                Velit dolorum numquam quia itaque ut sed, tempora sequi dignissimos non corporis quod quos exercitationem nesciunt quibusdam commodi voluptate consequatur nobis assumenda, deserunt fugit molestiae aut perspiciatis reiciendis sit? Nam!</p>
+              </div>
+              <Image src="/img/banner2.svg" height={500} width={700}/>
+             
+           </div> 
+  </div>);
 }
-
-
-
-
-export default function Home({ news }) {
-  const searchWord = useSearch();
-  const choosenLanguage = useLanguage();
-  const [search, setSearch] = useState('')
-  const [searchNews, setSearchNews] = useState([])
-  const [isLoaded , setIsLoaded] = useState(true)
-  useEffect(() => {
-      setIsLoaded(false)
-      setSearch(searchWord)
-  }, [searchWord])
-  useEffect(async()=>{
-    
-    setIsLoaded(false)
-    let data = null ;
-    (search !='') ?   data =  await Fetch(search , null , choosenLanguage , 1) :  data =  await Fetch("all" , null , choosenLanguage , 1)
-    setSearchNews(data)
-    setIsLoaded(true)
-  },[choosenLanguage])
-
-  useEffect(async () => {
-    setIsLoaded(false)
-    let data = await Fetch(search , null , choosenLanguage , 1);
-    setSearchNews(data)
-    setIsLoaded(true)
-  }, [search])
-
-  const changePage =async (p)=>{
-    let data = null ;
-    (search !='') ? data = await Fetch(search , null , "en" , p) :   data = await Fetch("all" , null , "en" , p);
-    setIsLoaded(true)
-    
-    setSearchNews(data)
-  }
-
-  if(isLoaded==false)
-  {
-    return  <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
-  }
-  else
-  {
-    return (
-      <>
-        <div className={styles.newsContainer}>
-        
-        {console.log(news)}
-          {searchNews.length > 0 ? searchNews.map((n) => {
-            { console.log("test") }
-            return <News key={n.title} news={n} />
-          }) : news.map((n) => {
-            return <News key={n.title} news={n} />
-          })}
-  
-        </div>
-        <div className={styles.pagination}>
-          {[1,2,3,4,5].map((nbr)=>{
-           
-            return <div key={nbr} onClick={()=>{ 
-              setIsLoaded(false);
-              changePage(nbr)}}>{nbr}</div>
-          })}
-        </div>
-      </>
-    )
-  }
-  
-}
+ 
+export default Home;
