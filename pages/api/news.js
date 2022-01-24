@@ -1,7 +1,24 @@
 import redis from "../../util/redis";
 
 export default async function handler(req, res) {
-    let data = await redis.get('news')
-    res.status(200).send(data)
+    console.log(req.method)
+    if(req.method == "POST")
+    {  
+        console.log(req.body.user)
+       let data = await  redis.rpush(req.body.user , JSON.stringify(req.body.news))
+       res.status(200).send(data);
+    }
+    if(req.method == "GET")
+    {
+        const { user } = req.query
+        let data = []
+        data = await  redis.lrange(user,0,-1);
+        res.status(200).send(data)
+    }
+    if(req.method == "DELETE")
+    {
+        await redis.lrem(req.body.user , 1 , JSON.stringify(req.body.news))
+    }
+   
 }
   

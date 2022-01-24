@@ -6,6 +6,7 @@
     background: rgba(255,255,255,0.5);
     overflow: hidden;
     border-radius: 20px;
+    position: relative;
    
 }
 .img{
@@ -26,6 +27,11 @@
 }
 .icon{
     color:grey;
+    position:absolute; 
+    z-index: 1;
+    top:10px;
+    font-size: 17px;
+    left:10px;
 }
 .icon:hover{
     color:rgb(79, 62, 158);      ;
