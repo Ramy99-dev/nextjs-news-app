@@ -17,28 +17,9 @@ export async function getServerSideProps(context) {
   
     const topic = context.params.params[0];
     const language = context.params.params[1]
-    const session = getSession(context.req, context.res);
-    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, language, 1) : await Fetch(topic, null, language, 1);
-    if(session?.user)
-    {
-        let dbData = await fetch(`http://localhost:3000/api/news?user=${session.user.sub}`)
-        let stringArr = await dbData.json()
-        let newsArr = stringArr.map((el)=>{
-            return JSON.parse(el)
-        })
-
-        newsArr.map((el)=>{
-            let index = data.indexOf(el)
-            console.log("INDEX")
-            console.log(data[index])
-            //data[index] = {'news': data[index].news , favorite:true}
-        })
-
-
-    }
-    
-    
-    
+    const page = context.params.params[2]
+    //const session = getSession(context.req, context.res);
+    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, language, page) : await Fetch(topic, null, language, page);    
     return {
         props: {
             news: data,
@@ -56,26 +37,20 @@ const NewsByCateg = ({ news, topic }) => {
     const [isLoaded, setIsLoaded] = useState(true);
     const [searchNews, setSearchNews] = useState();
     
-    useEffect(()=>{console.log(news)},[news])
+  
 
     useEffect(()=>{
-        router.push(`/${topic}/${choosenLanguage}`)
+        router.push(`/${topic}/${choosenLanguage}/1`)
     },[choosenLanguage])
 
-    const changePage = async (p) => {
+    const changePage =  (p) => {
 
-        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, choosenLanguage, p) : await Fetch(topic, null, choosenLanguage, p);
-        setIsLoaded(true)
-        setSearchNews(data)
+        router.push(`/${topic}/${choosenLanguage}/${p}`)
     }
 
     
 
-    if (isLoaded == false) {
-        return <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
-
-    }
-    else if(news.length == 0)
+     if(news.length == 0)
     {
         return <div className={styles.notFound}>No Data !</div>
     }
@@ -83,10 +58,7 @@ const NewsByCateg = ({ news, topic }) => {
         return (
             <>
                 <div className={styles.newsContainer}>
-                    {searchNews  ? searchNews.map((n) => {
-                 
-                        return <News key={n._id} news={n} />
-                    }) : news.map((n) => {
+                     {news?.map((n) => {
                         return <News key={n._id} news={n} />
                     })}
 

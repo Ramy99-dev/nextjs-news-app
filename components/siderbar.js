@@ -26,12 +26,12 @@ const SideBar = () => {
             <Link href="/"><li><FontAwesomeIcon icon={faHome}/><span>Home</span></li></Link>
            {user && <Link href="/"><li><FontAwesomeIcon icon={faUser}/><span>Profile</span></li></Link>}
            {user && <Link href="/favorites"><li><FontAwesomeIcon icon={faStar}/><span>Favorites</span></li></Link>}
-            <Link href={`/covid/${language}`}><li className={styles.breaking}><FontAwesomeIcon icon={faVirus}/><span>Covid-19</span></li></Link>
-            <Link href={`/science/${language}`}><li><FontAwesomeIcon icon={faAtom}/><span>Science</span></li></Link>
-            <Link href={`/tech/${language}`}><li><FontAwesomeIcon icon={faMicrochip}/><span>Technology</span></li></Link>
-            <Link href={`/sport/${language}`}><li className={itemsStyle}><FontAwesomeIcon icon={faFutbol}/><span>Sports</span></li></Link>
-            <Link href={`/astronomy/${language}`}><li className={itemsStyle}><FontAwesomeIcon icon={faSpaceShuttle}/><span>Astronomy</span></li></Link>
-            <Link href={`/nature/${language}`}><li className={itemsStyle}><FontAwesomeIcon icon={faLeaf}/><span>Nature</span></li></Link>
+            <Link href={`/covid/${language}/1`}><li className={styles.breaking}><FontAwesomeIcon icon={faVirus}/><span>Covid-19</span></li></Link>
+            <Link href={`/science/${language}/1`}><li><FontAwesomeIcon icon={faAtom}/><span>Science</span></li></Link>
+            <Link href={`/tech/${language}/1`}><li><FontAwesomeIcon icon={faMicrochip}/><span>Technology</span></li></Link>
+            <Link href={`/sport/${language}/1`}><li className={itemsStyle}><FontAwesomeIcon icon={faFutbol}/><span>Sports</span></li></Link>
+            <Link href={`/astronomy/${language}/1`}><li className={itemsStyle}><FontAwesomeIcon icon={faSpaceShuttle}/><span>Astronomy</span></li></Link>
+            <Link href={`/nature/${language}/1s`}><li className={itemsStyle}><FontAwesomeIcon icon={faLeaf}/><span>Nature</span></li></Link>
             
             <div className={btnStyle}>
                <button onClick={()=>{
