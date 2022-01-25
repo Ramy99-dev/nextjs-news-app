@@ -1,8 +1,8 @@
 import { getSession,withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { Router, useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import News from '../components/News';
-import styles from '../styles/Search.module.css'
+import News from '../../../components/News';
+import styles from '../../styles/Search.module.css'
 
 export const getServerSideProps = withPageAuthRequired({
      async getServerSideProps(ctx) {
