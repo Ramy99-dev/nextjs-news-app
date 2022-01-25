@@ -30,6 +30,10 @@ const Favorites = ({news}) => {
          newsList.splice(index,1)
          setSearchNews([...newsList])
     }
+    if(searchNews?.length == 0 || news.length== 0)
+    {
+        return <div className={styles.notFound}>No Data !</div>
+    }
     return (
            
             <div className={styles.newsContainer}>

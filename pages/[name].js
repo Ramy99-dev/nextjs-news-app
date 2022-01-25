@@ -70,7 +70,7 @@ const NewsByCateg = ({ news, topic }) => {
     }
     else if(searchNews?.length == 0 && searchNews!= null && choosenLanguage !="en")
     {
-        return <div>No Data !</div>
+        return <div className={styles.notFound}>No Data !</div>
     }
     else {
         return (

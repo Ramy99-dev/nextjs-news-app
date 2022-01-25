@@ -48,7 +48,12 @@
 .iconTrash:hover{
     color:tomato ;
 }
-
+.notFound{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media screen and (max-width: 930px) {
     .newsContainer{
         flex-direction: column !important;

@@ -4,10 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useUser } from '@auth0/nextjs-auth0';
+import { useEffect } from 'react';
 
 
 
 const News = ({ news , fav , update ,index }) => {
+  const { user, error, isLoading } = useUser();
+  const router = useRouter();
+
+ 
   const addFav = async () => {
     let data = await fetch('http://localhost:3000/api/news', {
       method: 'POST',
@@ -38,8 +43,7 @@ const News = ({ news , fav , update ,index }) => {
     console.log(data)
   }
 
-  const { user, error, isLoading } = useUser();
-  const router = useRouter();
+  
   return (
     <div className={styles.news}>
       {(!fav && user )&& <FontAwesomeIcon onClick={addFav} className={styles.iconStar} icon={faStar} />}
