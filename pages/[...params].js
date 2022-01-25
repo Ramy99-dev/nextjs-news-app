@@ -5,6 +5,7 @@ import { Oval } from 'react-loader-spinner';
 import { Fetch } from '../hooks/useFetch';
 import { useLanguage } from '../providers/SearchContext';
 import { useRouter } from 'next/router';
+import { getSession } from '@auth0/nextjs-auth0';
 
 
 const TOPICS = ["covid", "science", "tech", "sport", "astronomy", "nature"]
@@ -14,9 +15,30 @@ export async function getServerSideProps(context) {
 
    
   
-    const topic = context.params.name;
-    console.log(topic)
-    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, "en", 1) : await Fetch(topic, null, "en", 1);
+    const topic = context.params.params[0];
+    const language = context.params.params[1]
+    const session = getSession(context.req, context.res);
+    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, language, 1) : await Fetch(topic, null, language, 1);
+    if(session?.user)
+    {
+        let dbData = await fetch(`http://localhost:3000/api/news?user=${session.user.sub}`)
+        let stringArr = await dbData.json()
+        let newsArr = stringArr.map((el)=>{
+            return JSON.parse(el)
+        })
+
+        newsArr.map((el)=>{
+            let index = data.indexOf(el)
+            console.log("INDEX")
+            console.log(data[index])
+            //data[index] = {'news': data[index].news , favorite:true}
+        })
+
+
+    }
+    
+    
+    
     return {
         props: {
             news: data,
@@ -33,9 +55,12 @@ const NewsByCateg = ({ news, topic }) => {
     const choosenLanguage = useLanguage();
     const [isLoaded, setIsLoaded] = useState(true);
     const [searchNews, setSearchNews] = useState();
-    //const [topicContent, setTopicContent] = useState();
-
     
+    useEffect(()=>{console.log(news)},[news])
+
+    useEffect(()=>{
+        router.push(`/${topic}/${choosenLanguage}`)
+    },[choosenLanguage])
 
     const changePage = async (p) => {
 
@@ -44,27 +69,13 @@ const NewsByCateg = ({ news, topic }) => {
         setSearchNews(data)
     }
 
-    useEffect(async () => {
-        const data = null ;
-        
-        setIsLoaded(false)
-        if(choosenLanguage !="en")
-        {
-    
-            data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, choosenLanguage, 1) : await Fetch(topic, null, choosenLanguage, 1);
-    
-        }
-        
-        setSearchNews(data)
-        setIsLoaded(true)
-    }, [choosenLanguage , topic])
     
 
     if (isLoaded == false) {
         return <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
 
     }
-    else if(searchNews?.length == 0 && searchNews!= null && choosenLanguage !="en")
+    else if(news.length == 0)
     {
         return <div className={styles.notFound}>No Data !</div>
     }
@@ -72,12 +83,11 @@ const NewsByCateg = ({ news, topic }) => {
         return (
             <>
                 <div className={styles.newsContainer}>
-                  
                     {searchNews  ? searchNews.map((n) => {
                  
-                        return <News key={n.title} news={n} />
+                        return <News key={n._id} news={n} />
                     }) : news.map((n) => {
-                        return <News key={n.title} news={n} />
+                        return <News key={n._id} news={n} />
                     })}
 
                 </div>
