@@ -1,6 +1,6 @@
 import { getSession,withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { Router, useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import News from '../components/News';
 import styles from '../styles/Search.module.css'
 
@@ -13,7 +13,7 @@ export const getServerSideProps = withPageAuthRequired({
       const news = stringArr.map((el)=>{
           return JSON.parse(el)
       })
-      console.log(news)
+
       return { props: 
         { news} 
       };
@@ -23,12 +23,24 @@ export const getServerSideProps = withPageAuthRequired({
 const Favorites = ({news}) => {
     const Router = useRouter();
     const [searchNews, setSearchNews] = useState(null);
+    
+    let [styleContainer , setStyleContainer] = useState(styles.newsContainer)
+    useEffect(()=>{ 
+        
+       if(news.length < 4) 
+       {
+           setStyleContainer(styles.fullHeight) 
+       }
+    },[])
     function updateFav(index){
        
-        console.log(searchNews)
         let newsList = searchNews==null ? news : searchNews ;
          newsList.splice(index,1)
          setSearchNews([...newsList])
+         if(searchNews?.length < 4) 
+         {
+             setStyleContainer(styles.fullHeight) 
+         }
     }
     if(searchNews?.length == 0 || news.length== 0)
     {
@@ -36,11 +48,9 @@ const Favorites = ({news}) => {
     }
     return (
            
-            <div className={styles.newsContainer}>
-                 {console.log(searchNews)}
-                 {console.log("render")}
+            <div className={styleContainer}>
+  
             {searchNews!=null  ? searchNews.map((n,i) => {
-                        { console.log("test") }
                         return <News  update={updateFav} index={i} fav={true} key={n.title} news={n} ></News>
                     }) : news.map((n,i) => {
                         return <News update={updateFav} index={i} fav={true} key={n.title} news={n} ></News>

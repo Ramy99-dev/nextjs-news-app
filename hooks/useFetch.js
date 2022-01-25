@@ -1,7 +1,7 @@
 export const Fetch = async(question,topic,language,page)=>{
 
     let data = null ; 
-    console.log(question)
+
     if(!topic)
     {
          data = await fetch(`https://api.newscatcherapi.com/v2/search?q=${question}&lang=${language}&page_size=8&page=${page}`, {
@@ -22,7 +22,7 @@ export const Fetch = async(question,topic,language,page)=>{
   
       const newsList = await data.json();
   
-      console.log(newsList)
+
       let searchWord = [];
       newsList?.articles?.splice(0,8).map((n) => {
         searchWord.push(n);

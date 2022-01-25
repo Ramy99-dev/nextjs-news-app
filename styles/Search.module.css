@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@700&display=swap');
-.newsContainer{
+.fullHeight ,.newsContainer{
     display: flex;
     gap:10px;
     flex-direction: row;
@@ -8,6 +8,10 @@
     justify-content: center;
     height:auto;
     flex-wrap: wrap;
+}
+.fullHeight{
+    height: 100vh;
+    
 }
 .pagination{
     margin : 10px 0;

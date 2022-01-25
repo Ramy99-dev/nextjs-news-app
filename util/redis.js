@@ -1,6 +1,6 @@
 import Redis from 'ioredis';
 
-const redis = new Redis('localhost:6379');
+const redis = new Redis();
 
 redis.on('error', function (e) {
     if (e.message === 'ERR invalid password') {

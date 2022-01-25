@@ -13,8 +13,9 @@ const TOPICS = ["covid", "science", "tech", "sport", "astronomy", "nature"]
 export async function getServerSideProps(context) {
 
    
-
+  
     const topic = context.params.name;
+    console.log(topic)
     const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, "en", 1) : await Fetch(topic, null, "en", 1);
     return {
         props: {
@@ -32,7 +33,7 @@ const NewsByCateg = ({ news, topic }) => {
     const choosenLanguage = useLanguage();
     const [isLoaded, setIsLoaded] = useState(true);
     const [searchNews, setSearchNews] = useState();
-    const [topicContent, setTopicContent] = useState();
+    //const [topicContent, setTopicContent] = useState();
 
     
 
@@ -45,6 +46,7 @@ const NewsByCateg = ({ news, topic }) => {
 
     useEffect(async () => {
         const data = null ;
+        
         setIsLoaded(false)
         if(choosenLanguage !="en")
         {
@@ -55,14 +57,8 @@ const NewsByCateg = ({ news, topic }) => {
         
         setSearchNews(data)
         setIsLoaded(true)
-    }, [choosenLanguage])
-    useEffect(async () => {
-
-        setIsLoaded(false)
-        const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, choosenLanguage, 1) : await Fetch(topic, null, choosenLanguage, 1);
-        setSearchNews(data)
-        setIsLoaded(true)
-    }, [topic])
+    }, [choosenLanguage , topic])
+    
 
     if (isLoaded == false) {
         return <div className={styles.loader}><Oval color="blue" height={100} width={100} /></div>
@@ -76,9 +72,9 @@ const NewsByCateg = ({ news, topic }) => {
         return (
             <>
                 <div className={styles.newsContainer}>
-                    {console.log(news)}
+                  
                     {searchNews  ? searchNews.map((n) => {
-                        { console.log("test") }
+                 
                         return <News key={n.title} news={n} />
                     }) : news.map((n) => {
                         return <News key={n.title} news={n} />
