@@ -1,4 +1,6 @@
 import { getSession,withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { Router, useRouter } from 'next/router';
+import { useState } from 'react';
 import News from '../components/News';
 import styles from '../styles/Search.module.css'
 
@@ -19,26 +21,31 @@ export const getServerSideProps = withPageAuthRequired({
     });
 
 const Favorites = ({news}) => {
+    const Router = useRouter();
+    const [searchNews, setSearchNews] = useState(null);
+    function updateFav(index){
+       
+        console.log(searchNews)
+        let newsList = searchNews==null ? news : searchNews ;
+         newsList.splice(index,1)
+         setSearchNews([...newsList])
+    }
     return (
-        <>
+           
             <div className={styles.newsContainer}>
-                {console.log(news)}
-                { news?.map((n) => {
-                    return <News key={n.title} news={n} />
-                })}
+                 {console.log(searchNews)}
+                 {console.log("render")}
+            {searchNews!=null  ? searchNews.map((n,i) => {
+                        { console.log("test") }
+                        return <News  update={updateFav} index={i} fav={true} key={n.title} news={n} ></News>
+                    }) : news.map((n,i) => {
+                        return <News update={updateFav} index={i} fav={true} key={n.title} news={n} ></News>
+                    })}
+
 
             </div>
-            <div className={styles.pagination}>
-                {[1, 2, 3, 4, 5].map((nbr) => {
-
-                    return <div key={nbr} onClick={() => {
-                        setIsLoaded(false);
-                        changePage(nbr)
-                    }
-                    }>{nbr}</div>
-                })}
-            </div>
-        </>
+            
+        
         
     )
 }

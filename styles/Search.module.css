@@ -37,6 +37,17 @@
     justify-content: center;
     align-items: center;
 }
+.iconStar , .iconTrash{
+    color:grey;
+    position:absolute; 
+    z-index: 1;
+    top:10px;
+    font-size: 17px;
+    left:10px;
+}
+.iconTrash:hover{
+    color:tomato ;
+}
 
 @media screen and (max-width: 930px) {
     .newsContainer{
