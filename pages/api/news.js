@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     if (req.method == "POST") {
         try {
             let data = await redis.rpush(req.body.user, JSON.stringify(req.body.news))
-            res.status(200).send(data);// This emit an error on the redis client, because it fails to connect (that's intended, to test the behaviour)
+            res.status(200).send(data);
         } catch (e) {
             console.log(e)
         }

@@ -68,14 +68,14 @@ export default function Search({ news , searchWord }) {
           })}
   
         </div>
-        <div className={styles.pagination}>
+        {searchNews.length > 7 && <div className={styles.pagination}>
           {[1,2,3,4,5].map((nbr)=>{
            
             return <div key={nbr} onClick={()=>{ 
               setIsLoaded(false);
               changePage(nbr)}}>{nbr}</div>
           })}
-        </div>
+        </div>}
       </>
     )
   }

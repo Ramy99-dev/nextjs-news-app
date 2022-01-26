@@ -26,7 +26,7 @@ const News = ({ news , fav , update ,index }) => {
       
 
     })
-    console.log(data)
+    
   }
 
   const removeFav = async () => {
@@ -42,7 +42,7 @@ const News = ({ news , fav , update ,index }) => {
 
     })
     
-    console.log(data)
+    
   }
 
   
