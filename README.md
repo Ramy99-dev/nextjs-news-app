@@ -46,4 +46,5 @@ Follow this repository for more details : https://github.com/auth0/nextjs-auth0 
 4. Run  ```npm start``` <br />
 
 ### Demo 
+![](https://github.com/Ramy99-dev/nextjs-news-app/blob/master/media/demo.gif)
 
