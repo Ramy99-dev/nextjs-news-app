@@ -4,17 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/router';
 import Image from'next/image';
 import { useUser } from '@auth0/nextjs-auth0';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
 const News = ({ news , fav , update ,index }) => {
   const { user, error, isLoading } = useUser();
+  const [starStyle , setStarStyle] = useState(styles.iconStar)
   const router = useRouter();
 
  
   const addFav = async () => {
- 
+    setStarStyle(styles.fav)
     let data = await fetch('http://localhost:3000/api/news', {
       method: 'POST',
       headers: {
@@ -47,8 +48,9 @@ const News = ({ news , fav , update ,index }) => {
   
   return (
     <div className={styles.news}>
-      {(!fav && user )&& <FontAwesomeIcon onClick={addFav} className={styles.iconStar} icon={faStar} />}
+      {(!fav && user )&& <FontAwesomeIcon onClick={addFav} className={starStyle} icon={faStar} />}
       {fav && <FontAwesomeIcon onClick={removeFav} className={styles.iconTrash} icon={faTrash} />}
+      {!fav && news.favorite && <FontAwesomeIcon  className={styles.fav} icon={faStar} />}
       <div className={styles.newsImage}>
         {news.media ? <Image className={styles.img} loader={() => news.media} src={news.media} width={600} height={300} />
           : <Image className={styles.img} loader={() => 'https://www.efeca.com/wp-content/uploads/2015/02/world-news-headlines-15-widescreen-wallpaper.jpg'} src={"https://www.efeca.com/wp-content/uploads/2015/02/world-news-headlines-15-widescreen-wallpaper.jpg"} width={600} height={300} />}

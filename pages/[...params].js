@@ -18,9 +18,28 @@ export async function getServerSideProps(context) {
     const topic = context.params.params[0];
     const language = context.params.params[1]
     const page = context.params.params[2]
-    const session = getSession(context.req, context.res);
+  
     const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, language, page) : await Fetch(topic, null, language, page);  
-      
+
+    const session = getSession(context.req, context.res);
+    console.log("USER")
+    console.log(session.user.sub)
+    const dataFav =  await fetch(`http://localhost:3000/api/news?user=${session.user.sub}`)
+    const favList = await dataFav.json()
+    console.log("FAV")
+
+    favList.map((Favel)=>{
+        let element = JSON.parse(Favel.toString())
+        data.map((datael)=>{
+            if(datael._id == element._id)
+            {
+                datael.favorite = true
+            }
+        })
+    })
+
+
+
     return {
         props: {
             news: data,
@@ -67,7 +86,7 @@ const NewsByCateg = ({ news, topic , language }) => {
             <>
                 <div className={styles.newsContainer}>
                      {news?.map((n) => {
-                        return <News key={n._id} news={n} />
+                        return <News  key={n._id} news={n} />
                     })}
 
                 </div>

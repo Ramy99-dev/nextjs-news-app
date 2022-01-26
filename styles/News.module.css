@@ -25,7 +25,7 @@
     align-items: center;
     gap:70%;
 }
-.iconStar , .iconTrash{
+.fav , .iconStar , .iconTrash{
     color:grey;
     position:absolute; 
     z-index: 1;
@@ -33,8 +33,11 @@
     font-size: 17px;
     left:10px;
 }
+.fav{
+    color:rgb(79, 62, 158);      
+}
 .iconStar:hover{
-    color:rgb(79, 62, 158);      ;
+    color:rgb(79, 62, 158);      
 }
 .iconTrash:hover{
     color:tomato ;
