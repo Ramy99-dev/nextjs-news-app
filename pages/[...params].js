@@ -18,12 +18,14 @@ export async function getServerSideProps(context) {
     const topic = context.params.params[0];
     const language = context.params.params[1]
     const page = context.params.params[2]
-    //const session = getSession(context.req, context.res);
-    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, language, page) : await Fetch(topic, null, language, page);    
+    const session = getSession(context.req, context.res);
+    const data = (topic == TOPICS[1] || topic == TOPICS[3] || topic == TOPICS[2]) ? await Fetch("all", topic, language, page) : await Fetch(topic, null, language, page);  
+      
     return {
         props: {
             news: data,
-            topic
+            topic,
+            language
         },
 
     }
@@ -31,7 +33,7 @@ export async function getServerSideProps(context) {
 
 
 
-const NewsByCateg = ({ news, topic }) => {
+const NewsByCateg = ({ news, topic , language }) => {
     const router = useRouter();
     const choosenLanguage = useLanguage();
     const [isLoaded, setIsLoaded] = useState(true);
@@ -40,7 +42,13 @@ const NewsByCateg = ({ news, topic }) => {
   
 
     useEffect(()=>{
-        router.push(`/${topic}/${choosenLanguage}/1`)
+        console.log(language)
+
+        if(language != choosenLanguage)
+        {
+            router.push(`/${topic}/${choosenLanguage}/1`)
+        }
+       
     },[choosenLanguage])
 
     const changePage =  (p) => {

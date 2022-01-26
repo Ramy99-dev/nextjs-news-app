@@ -1,7 +1,7 @@
 import redis from "../../util/redis";
 
 export default async function handler(req, res) {
-    console.log(req.method)
+    console.log(JSON.stringify(req.body.news))
     if (req.method == "POST") {
         try {
             let data = await redis.rpush(req.body.user, JSON.stringify(req.body.news))
@@ -14,8 +14,7 @@ export default async function handler(req, res) {
     if (req.method == "GET") {
         try {
             const { user } = req.query
-            let data = []
-            data = await redis.lrange(user, 0, -1)
+            let data = await redis.lrange(user, 0, -1)
             res.status(200).send(data)
         } catch (e) {
             console.log(e)

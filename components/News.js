@@ -2,7 +2,7 @@ import styles from '../styles/News.module.css'
 import { faStar , faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/router';
-import Image from 'next/image';
+import Image from'next/image';
 import { useUser } from '@auth0/nextjs-auth0';
 import { useEffect } from 'react';
 
@@ -14,6 +14,7 @@ const News = ({ news , fav , update ,index }) => {
 
  
   const addFav = async () => {
+ 
     let data = await fetch('http://localhost:3000/api/news', {
       method: 'POST',
       headers: {
