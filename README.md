@@ -20,9 +20,10 @@ Auth0 for authentification .
 <img  alt="solidity" width="60px" src="https://www.drupal.org/files/project-images/brand%20evolution_logo_Auth0_black.png" />
 
 To run locally : 
-- Prerequisite :  Install redis locally or use redis-cloud 
-
-- Web : <br/>
+- Prerequisite : 
+   - Install redis locally or use redis-cloud 
+   - Install NodeJS
+                  
 1. Run  ```npm install```  to install React dependecies
 2. Create .env.local file to configure auth0 and redis:
 ```
