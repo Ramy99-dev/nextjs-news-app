@@ -8,6 +8,7 @@ using NextJS to :
 - connect to redis local database
 - fetch data news Api
 - create api end point
+- Context Api for state management 
 Redis Local Database .
 Auth0 for authentification .
 
