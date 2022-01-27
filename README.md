@@ -43,7 +43,7 @@ AUTH0_CLIENT_SECRET='YOUR_AUTH0_CLIENT_SECRET'
 REDIS_URL=http://localhost:6379
 ``` 
 Follow this repository for more details : https://github.com/auth0/nextjs-auth0 <br/>
-3. Run  ```npm run build .``` <br/>
+3. Run  ```npm run build``` <br/>
 4. Run  ```npm start``` <br />
 
 ### Demo 
